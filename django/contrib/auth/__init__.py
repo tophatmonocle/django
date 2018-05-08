@@ -217,7 +217,11 @@ def get_user(request):
             backend = load_backend(backend_path)
             user = backend.get_user(user_id)
             # Verify the session
-            if hasattr(user, 'get_session_auth_hash'):
+            #
+            # use the pre-Django 1.10 method of only verifying the hash
+            # if the session authentication middleware is installed
+            if ('django.contrib.auth.middleware.SessionAuthenticationMiddleware'
+                    in settings.MIDDLEWARE_CLASSES and hasattr(user, 'get_session_auth_hash')):
                 session_hash = request.session.get(HASH_SESSION_KEY)
                 session_hash_verified = session_hash and constant_time_compare(
                     session_hash,

@@ -29,7 +29,7 @@ EXCLUDE_FROM_PACKAGES = ['django.conf.project_template',
 
 
 # Dynamically calculate the version based on django.VERSION.
-version = '1.11.12.1'
+version = '1.11.12.2'
 
 
 setup(
